@@ -82,8 +82,6 @@ class _AppexHomeState extends State<AppexHome> {
                               )),
                     ),
                   ),
-
-                  //
                 ]),
               ),
 
