@@ -56,7 +56,7 @@ void main() {
             phone: anyNamed('phone'),
             password: anyNamed('password'),
             gender: anyNamed('gender')))
-        .thenAnswer((_) async => throw DatabaseException());
+        .thenAnswer((_) async => throw SqlException());
     //act
     final result = await registrationRepositoryImpl.registerUser(
         name: '', role: '', email: '', phone: '', password: '', gender: '');
