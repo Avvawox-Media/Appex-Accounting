@@ -1,11 +1,13 @@
 import 'package:appex_accounting/home_page/pages/appex_home.dart';
-import 'package:appex_accounting/home_page/pages/splash_page.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
 import 'core/utils/colors.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //Run Base Application
   runApp(Appex());
 
   //Init Custom Windows Settings

@@ -47,9 +47,14 @@ class _AppexHomeState extends State<AppexHome> {
                 height: MediaQuery.of(context).size.height,
                 color: AppColor.secondary,
                 child: Column(children: [
-                  WindowTitleBarBox(child: MoveWindow()),
-
-                  LogoSection(),
+                  WindowTitleBarBox(
+                    child: MoveWindow(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.0),
+                        child: LogoSection(),
+                      ),
+                    ),
+                  ),
 
                   SizedBox(height: 20.0),
 

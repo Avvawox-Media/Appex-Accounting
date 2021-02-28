@@ -9,7 +9,7 @@ class LogoSection extends StatelessWidget {
       child: Image(
         image: AssetImage('lib/core/images/appex_title.png'),
         fit: BoxFit.contain,
-        height: 20.0,
+        height: 15.0,
       ),
     );
   }

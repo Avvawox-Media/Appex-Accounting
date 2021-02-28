@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 const buttonColors = WindowButtonColors(
     iconNormal: Color(0x88FFFFFF),
-    mouseOver: Color(0x66560656),
-    mouseDown: Color(0x55800680),
+    mouseOver: Color(0x990099FF),
+    mouseDown: Color(0x550099FF),
     iconMouseOver: Color(0x88FFFFFF),
-    iconMouseDown: Color(0xFFFF05FF));
+    iconMouseDown: Color(0xFF0099FF));
 
 const closeButtonColors = WindowButtonColors(
     mouseOver: Color(0x66D32F2F),
