@@ -29,8 +29,8 @@ dependencies:
   equatable: ^1.2.6
   http: ^0.13.0
   shared_preferences: ^0.5.12+4
-  # sqlite3: ^1.0.0
-  vertical_tabs: ^0.2.0
+  sqflite: ^2.0.0
+  path: ^1.7.0
 
 dev_dependencies:
   flutter_test:
