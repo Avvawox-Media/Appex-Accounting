@@ -17,7 +17,7 @@ void main() {
     registerUser = RegisterUser(mockRegistrationRepository);
   });
 
-  final registeredUser = RegisteredUser('');
+  final registeredUser = RegisteredUser(0);
   //test
   test('should return a registered user', () async {
     //arrange

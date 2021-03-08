@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class RegisteredUser extends Equatable {
-  final String userId;
+  final int userId;
 
   const RegisteredUser(this.userId);
 
