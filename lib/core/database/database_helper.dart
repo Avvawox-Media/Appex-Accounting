@@ -39,30 +39,31 @@ class DatabaseHelper {
 
     //Services Table
     String servicesSql =
-        'CREATE TABLE services_tbl(service_id TEXT PRIMARY KEY, type TEXT, ' +
+        'CREATE TABLE services_tbl(service_id TEXT PRIMARY KEY AUTOINCREMENT, type TEXT, ' +
             'description TEXT, cost INTEGER, amount INTEGER, balance INTEGER, ' +
             'delivery TEXT, date TEXT, payment_date TEXT, delivery_date TEXT)';
 
     ///Finances Tables
-    String inflowSql = 'CREATE TABLE inflow_tbl(id INTEGER PRIMARY KEY, ' +
-        'service_id TEXT, description TEXT, amount INTEGER, date TEXT)';
+    String inflowSql =
+        'CREATE TABLE inflow_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+            'service_id TEXT, description TEXT, amount INTEGER, date TEXT)';
 
-    String outflowSql = 'CREATE TABLE outflow(id INTEGER PRIMARY KEY, ' +
+    String outflowSql = 'CREATE TABLE outflow_tbl(id INTEGER PRIMARY KEY, ' +
         'reason TEXT,  amount INTEGER, date TEXT)';
 
     //Users Table
     String usersSql =
-        'CREATE TABLE users_tbl(id INTEGER PRIMARY KEY, staff_id TEXT, name TEXT, ' +
+        'CREATE TABLE users_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, staff_id TEXT, name TEXT, ' +
             'role TEXT, email TEXT, phone TEXT, gender TEXT, date TEXT)';
 
     //Enquiries Table
     String enquiriesSql =
-        'CREATE TABLE enquiries_tbl(id INTEGER PRIMARY KEY, customer TEXT, ' +
+        'CREATE TABLE enquiries_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, customer TEXT, ' +
             'details TEXT, phone TEXT, date TEXT)';
 
     //Enquiries Table
     String customerSql =
-        'CREATE TABLE enquiries_tbl(id INTEGER PRIMARY KEY, customer TEXT, ' +
+        'CREATE TABLE customers_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, customer TEXT, ' +
             'email TEXT, phone TEXT, date TEXT)';
 
     batch.execute(servicesSql);
@@ -76,7 +77,10 @@ class DatabaseHelper {
   /// [Inserts] a row in a selected database table with [tableName] where each key in the Map
   /// is a column-[name] and the value is the column [value]. The return value is the id of the
   /// inserted row.
-  Future<int> insertData({String tableName, Map<String, dynamic> data}) async {
+  Future<int> insertData({
+    @required String tableName,
+    @required Map<String, dynamic> data,
+  }) async {
     Database database = await instance.database;
 
     return await database.insert(tableName, data);

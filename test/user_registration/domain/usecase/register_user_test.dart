@@ -19,7 +19,7 @@ void main() {
 
   final registeredUser = RegisteredUser(0);
   //test
-  test('should return a registered user', () async {
+  test('should return a registered user with integer id', () async {
     //arrange
     when(mockRegistrationRepository.registerUser(
             name: anyNamed('name'),

@@ -31,6 +31,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   sqflite: ^2.0.0
   path: ^1.7.0
+  idb_sqflite: ^1.0.0
 
 dev_dependencies:
   flutter_test:
