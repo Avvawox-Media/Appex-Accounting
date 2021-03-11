@@ -1,4 +1,3 @@
-import 'package:appex_accounting/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class MasterPageView extends StatefulWidget {

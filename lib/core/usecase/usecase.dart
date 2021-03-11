@@ -1,4 +1,4 @@
-import 'package:appex_accounting/core/failure/failures.dart';
+import '../failure/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class UseCase<Type, Params> {

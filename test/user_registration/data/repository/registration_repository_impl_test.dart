@@ -1,9 +1,7 @@
 import 'package:appex_accounting/core/exceptions/exceptions.dart';
 import 'package:appex_accounting/core/failure/failures.dart';
-import 'package:appex_accounting/features/user_reegistration/data/models/registered_user_model.dart';
-import 'package:appex_accounting/features/user_reegistration/data/repositories/registration_repository_impl.dart';
-import 'package:appex_accounting/features/user_reegistration/data/sources/registration_data_source.dart';
-import 'package:appex_accounting/features/user_reegistration/domain/entities/registered_user.dart';
+import 'package:appex_accounting/features/user_registration/data/repositories/registration_repository_impl.dart';
+import 'package:appex_accounting/features/user_registration/data/sources/registration_data_source.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -21,8 +19,6 @@ void main() {
         RegistrationRepositoryImpl(mockRegistrationDataSource);
   });
 
-  final RegisteredUser registeredUser = RegisteredUserModel(0);
-
   //test
   test('should return a valid RegisteredUserModel', () async {
     //arrange
@@ -33,7 +29,7 @@ void main() {
             phone: anyNamed('phone'),
             password: anyNamed('password'),
             gender: anyNamed('gender')))
-        .thenAnswer((_) async => RegisteredUserModel(0));
+        .thenAnswer((_) async => (0));
     //act
     final result = await registrationRepositoryImpl.registerUser(
         name: '', role: '', email: '', phone: '', password: '', gender: '');
@@ -41,7 +37,7 @@ void main() {
     //assert
     verify(mockRegistrationDataSource.registerUser(
         name: '', role: '', email: '', phone: '', password: '', gender: ''));
-    expect(result, Right(registeredUser));
+    expect(result, Right(0));
     verifyNoMoreInteractions(mockRegistrationDataSource);
   });
 
@@ -55,7 +51,7 @@ void main() {
             phone: anyNamed('phone'),
             password: anyNamed('password'),
             gender: anyNamed('gender')))
-        .thenAnswer((_) async => throw SqlException());
+        .thenAnswer((_) async => throw DatabaseException());
     //act
     final result = await registrationRepositoryImpl.registerUser(
         name: '', role: '', email: '', phone: '', password: '', gender: '');

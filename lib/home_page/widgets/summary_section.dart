@@ -1,6 +1,7 @@
-import 'package:appex_accounting/core/utils/colors.dart';
-import 'package:appex_accounting/home_page/widgets/summary_page_content.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/colors.dart';
+import 'summary_page_content.dart';
 
 class SummarySection extends StatefulWidget {
   @override

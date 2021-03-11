@@ -1,6 +1,7 @@
-import 'package:appex_accounting/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import '../../core/utils/colors.dart';
 
 class TabButton extends StatefulWidget {
   final int index;

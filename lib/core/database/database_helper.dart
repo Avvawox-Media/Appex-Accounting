@@ -1,138 +1,79 @@
-import 'package:appex_accounting/core/utils/strings.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:meta/meta.dart';
+import 'dart:io';
+
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 class DatabaseHelper {
-  DatabaseHelper._instance();
+  static Directory _documentsDirectory;
+
+  //Creates a singleton instance of class DatabaseHelper
+  DatabaseHelper._instance() {
+    if (_documentsDirectory == null) initDatabase();
+  }
+
   static final DatabaseHelper instance = DatabaseHelper._instance();
 
-  /// Initialize [_databaseName] and [_databaseVersion] with Name stored in sharedPrefrences
-  /// Database Name and an appropriate version number for every app version
-  final String _databaseName = DATABASE_PREFIX + 'Tester';
-  final int _databaseVersion = 1;
+  Future<void> initDatabase() async {
+    ///Gets a platform specific path where database would recide
+    _documentsDirectory = await path_provider.getApplicationSupportDirectory();
 
-  static Database _database;
-
-  ///Create Single App-wide reference to the Database
-  Future<Database> get database async {
-    //Check if a connection to the database already exists
-    if (_database != null) return _database;
-
-    //Lazily initiate the db the first time it is accessed
-    _database = await _initDatabase();
-    return _database;
+    try {
+      ///Initial [Hive] database with the current platform's specific
+      ///directory path to the database
+      return Hive.init(_documentsDirectory.path);
+    } catch (e) {
+      print('handled');
+    }
   }
 
-  ///Initial Databae on first access
-  _initDatabase() async {
-    final String databasePath = await getDatabasesPath();
-    String path = join(databasePath, _databaseName);
-
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreateDb);
+  /// Specifies the name of the [box] to [open] for
+  /// access.
+  Future<Box> open(String box) async {
+    return await Hive.openBox(box);
   }
 
-  //Create database
-  Future _onCreateDb(Database db, int version) async {
-    final Batch batch = db.batch();
-
-    //Services Table
-    String servicesSql =
-        'CREATE TABLE services_tbl(service_id TEXT PRIMARY KEY AUTOINCREMENT, type TEXT, ' +
-            'description TEXT, cost INTEGER, amount INTEGER, balance INTEGER, ' +
-            'delivery TEXT, date TEXT, payment_date TEXT, delivery_date TEXT)';
-
-    ///Finances Tables
-    String inflowSql =
-        'CREATE TABLE inflow_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-            'service_id TEXT, description TEXT, amount INTEGER, date TEXT)';
-
-    String outflowSql = 'CREATE TABLE outflow_tbl(id INTEGER PRIMARY KEY, ' +
-        'reason TEXT,  amount INTEGER, date TEXT)';
-
-    //Users Table
-    String usersSql =
-        'CREATE TABLE users_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, staff_id TEXT, name TEXT, ' +
-            'role TEXT, email TEXT, phone TEXT, gender TEXT, date TEXT)';
-
-    //Enquiries Table
-    String enquiriesSql =
-        'CREATE TABLE enquiries_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, customer TEXT, ' +
-            'details TEXT, phone TEXT, date TEXT)';
-
-    //Enquiries Table
-    String customerSql =
-        'CREATE TABLE customers_tbl(id INTEGER PRIMARY KEY AUTOINCREMENT, customer TEXT, ' +
-            'email TEXT, phone TEXT, date TEXT)';
-
-    batch.execute(servicesSql);
-    batch.execute(inflowSql);
-    batch.execute(outflowSql);
-    batch.execute(usersSql);
-    batch.execute(enquiriesSql);
-    batch.execute(customerSql);
+  /// [save] a modelled [object] in a specified [box] .
+  /// The return value is the index of the object
+  /// saved in the [box].
+  Future<int> save(String box, dynamic object) async {
+    final boxAction = await Hive.openBox(box);
+    return boxAction.add(object);
   }
 
-  /// [Inserts] a row in a selected database table with [tableName] where each key in the Map
-  /// is a column-[name] and the value is the column [value]. The return value is the id of the
-  /// inserted row.
-  Future<int> insertData({
-    @required String tableName,
-    @required Map<String, dynamic> data,
-  }) async {
-    Database database = await instance.database;
-
-    return await database.insert(tableName, data);
+  /// [update] the value(s)  of an [object] specified by
+  /// the [key] with the provided [value]
+  Future<void> update(dynamic key, String box, dynamic value) async {
+    final boxAction = await Hive.openBox(box);
+    return boxAction.putAt(key, value);
   }
 
-  /// We are assuming here that the id column in the map is set. The other
-  /// column values will be used to update the row.
-  Future<int> updateDataById({
-    @required String tableName,
-    @required Map<String, dynamic> data,
-    String key,
-    String columnName,
-  }) async {
-    Database database = await instance.database;
-
-    int id = data[key];
-
-    return await database.update(
-      tableName,
-      data,
-      where: '$columnName = ?',
-      whereArgs: [id],
-    );
+  Future<dynamic> getItem(dynamic key, String box) async {
+    final boxAction = await Hive.openBox(box);
+    return boxAction.getAt(key);
   }
 
-  /// Deletes the row specified by the [id]. The number of affected rows is
-  /// returned. This should be 1 as long as the row exists.
-  Future<int> deleteDataById(
-      String tableName, String columnName, int id) async {
-    Database database = await instance.database;
+  Future<List<dynamic>> getAllItem(String box) async {
+    final List items = [];
 
-    return await database.delete(
-      tableName,
-      where: '$columnName = ?',
-      whereArgs: [id],
-    );
+    final boxAction = await Hive.openBox(box);
+
+    for (int index = 0; index < boxAction.length; index++) {
+      items.add(boxAction.getAt(index));
+    }
+
+    return items;
   }
 
-  /// All of the rows int a table with specific [tableName] are returned as a list of maps,
-  /// where each map is a key-value list of columns.
-  Future<List<Map<String, dynamic>>> queryAllRows(String tableName) async {
-    Database db = await instance.database;
-
-    return await db.query(tableName);
+  /// [remove] the object specified by the [key], from
+  /// the selected [box].
+  Future<void> remove(dynamic key, String box) async {
+    final boxAction = await Hive.openBox(box);
+    return boxAction.deleteAt(key);
   }
 
-  /// This method uses a raw query to give the row count.
-  Future<int> queryRowCount(String tableName) async {
-    Database db = await instance.database;
-
-    return Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM $tableName'),
-    );
+  ///Closes the Hive database. Observing best practices
+  ///necesaary to avoid memory leaks
+  Future<void> close(String box) {
+    return Hive.box(box).close();
   }
 }

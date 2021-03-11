@@ -1,5 +1,6 @@
-import 'package:appex_accounting/core/utils/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/colors.dart';
 
 class UserInfoView extends StatefulWidget {
   @override

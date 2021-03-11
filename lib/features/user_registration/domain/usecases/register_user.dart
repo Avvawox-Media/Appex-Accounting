@@ -1,21 +1,22 @@
-import 'package:appex_accounting/core/failure/failures.dart';
-import 'package:appex_accounting/core/usecase/usecase.dart';
-import 'package:appex_accounting/features/user_reegistration/domain/entities/registered_user.dart';
-import 'package:appex_accounting/features/user_reegistration/domain/repositories/registration_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class RegisterUser extends UseCase<RegisteredUser, RegistrationParams> {
+import '../../../../core/failure/failures.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../repositories/registration_repository.dart';
+
+class RegisterUser extends UseCase<int, RegistrationParams> {
   final RegistrationRepository registrationRepository;
 
   RegisterUser(this.registrationRepository);
 
   @override
-  Future<Either<Failure, RegisteredUser>> call(params) async {
+  Future<Either<Failure, int>> call(params) async {
     return await registrationRepository.registerUser(
       name: params.name,
       role: params.name,
+      staffId: params.staffId,
       email: params.email,
       phone: params.phone,
       password: params.password,

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 // class SqlException implements DatabaseException {}
 
-class SqlException implements Exception {}
+class DatabaseException implements Exception {}
 
 class CacheException implements Exception {}
 

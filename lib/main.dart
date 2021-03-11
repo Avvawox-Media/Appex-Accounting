@@ -1,8 +1,8 @@
-import 'package:appex_accounting/home_page/pages/appex_home.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
 import 'core/utils/colors.dart';
+import 'home_page/pages/appex_home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

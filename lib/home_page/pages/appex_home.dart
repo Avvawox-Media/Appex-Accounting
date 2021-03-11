@@ -1,12 +1,13 @@
-import 'package:appex_accounting/core/utils/colors.dart';
-import 'package:appex_accounting/home_page/widgets/logo_section.dart';
-import 'package:appex_accounting/home_page/widgets/master_page_view.dart';
-import 'package:appex_accounting/home_page/widgets/summary_section.dart';
-import 'package:appex_accounting/home_page/widgets/tab_button.dart';
-import 'package:appex_accounting/home_page/widgets/user_info_view.dart';
-import 'package:appex_accounting/home_page/widgets/window_control_buttons.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/utils/colors.dart';
+import '../widgets/logo_section.dart';
+import '../widgets/master_page_view.dart';
+import '../widgets/summary_section.dart';
+import '../widgets/tab_button.dart';
+import '../widgets/user_info_view.dart';
+import '../widgets/window_control_buttons.dart';
 
 class AppexHome extends StatefulWidget {
   @override

@@ -1,10 +1,10 @@
-import 'package:appex_accounting/core/exceptions/exceptions.dart';
-import 'package:appex_accounting/features/user_reegistration/data/sources/registration_data_source.dart';
-import 'package:appex_accounting/features/user_reegistration/domain/entities/registered_user.dart';
-import 'package:appex_accounting/core/failure/failures.dart';
-import 'package:appex_accounting/features/user_reegistration/domain/repositories/registration_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../core/exceptions/exceptions.dart';
+import '../../../../core/failure/failures.dart';
+import '../../domain/repositories/registration_repository.dart';
+import '../sources/registration_data_source.dart';
 
 class RegistrationRepositoryImpl implements RegistrationRepository {
   final RegistrationDataSourceImpl registrationDataSourceImpl;
@@ -12,7 +12,7 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
   RegistrationRepositoryImpl(this.registrationDataSourceImpl);
 
   @override
-  Future<Either<Failure, RegisteredUser>> registerUser({
+  Future<Either<Failure, int>> registerUser({
     @required String name,
     String staffId,
     @required String role,
@@ -25,6 +25,7 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
       return Right(
         await registrationDataSourceImpl.registerUser(
           name: name,
+          staffId: staffId,
           role: role,
           email: email,
           phone: phone,
@@ -32,8 +33,22 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
           gender: gender,
         ),
       );
-    } on SqlException {
+    } on DatabaseException {
       return Left(DatabaseFailure('T', ''));
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUser({
+    String name,
+    String staffId,
+    String role,
+    String email,
+    String phone,
+    String password,
+    String gender,
+  }) {
+    // TODO: implement updateUser
+    throw UnimplementedError();
   }
 }
