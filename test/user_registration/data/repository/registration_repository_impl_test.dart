@@ -18,48 +18,123 @@ void main() {
     registrationRepositoryImpl =
         RegistrationRepositoryImpl(mockRegistrationDataSource);
   });
+  group('RegisterUser', () {
+    //test
+    test('should return a value index after successfully registering a user',
+        () async {
+      //arrange
+      when(mockRegistrationDataSource.registerUser(
+              name: anyNamed('name'),
+              role: anyNamed('role'),
+              email: anyNamed('email'),
+              phone: anyNamed('phone'),
+              password: anyNamed('password'),
+              gender: anyNamed('gender')))
+          .thenAnswer((_) async => (0));
+      //act
+      final result = await registrationRepositoryImpl.registerUser(
+          name: '', role: '', email: '', phone: '', password: '', gender: '');
 
-  //test
-  test('should return a valid RegisteredUserModel', () async {
-    //arrange
-    when(mockRegistrationDataSource.registerUser(
-            name: anyNamed('name'),
-            role: anyNamed('role'),
-            email: anyNamed('email'),
-            phone: anyNamed('phone'),
-            password: anyNamed('password'),
-            gender: anyNamed('gender')))
-        .thenAnswer((_) async => (0));
-    //act
-    final result = await registrationRepositoryImpl.registerUser(
-        name: '', role: '', email: '', phone: '', password: '', gender: '');
+      //assert
+      verify(mockRegistrationDataSource.registerUser(
+          name: '', role: '', email: '', phone: '', password: '', gender: ''));
+      expect(result, Right(0));
+      verifyNoMoreInteractions(mockRegistrationDataSource);
+    });
 
-    //assert
-    verify(mockRegistrationDataSource.registerUser(
-        name: '', role: '', email: '', phone: '', password: '', gender: ''));
-    expect(result, Right(0));
-    verifyNoMoreInteractions(mockRegistrationDataSource);
+    //test
+    test('should return a DatabaseFailure', () async {
+      //arrange
+      when(mockRegistrationDataSource.registerUser(
+              name: anyNamed('name'),
+              role: anyNamed('role'),
+              email: anyNamed('email'),
+              phone: anyNamed('phone'),
+              password: anyNamed('password'),
+              gender: anyNamed('gender')))
+          .thenThrow(DatabaseException());
+      //act
+      final result = await registrationRepositoryImpl.registerUser(
+          name: '', role: '', email: '', phone: '', password: '', gender: '');
+
+      //assert
+      verify(mockRegistrationDataSource.registerUser(
+          name: '', role: '', email: '', phone: '', password: '', gender: ''));
+      expect(result, Left(DatabaseFailure('T', 'M')));
+      verifyNoMoreInteractions(mockRegistrationDataSource);
+    });
   });
 
-  //test
-  test('should return a DatabaseFailure', () async {
-    //arrange
-    when(mockRegistrationDataSource.registerUser(
-            name: anyNamed('name'),
-            role: anyNamed('role'),
-            email: anyNamed('email'),
-            phone: anyNamed('phone'),
-            password: anyNamed('password'),
-            gender: anyNamed('gender')))
-        .thenAnswer((_) async => throw DatabaseException());
-    //act
-    final result = await registrationRepositoryImpl.registerUser(
-        name: '', role: '', email: '', phone: '', password: '', gender: '');
+  group('UpdateUser', () {
+    //test
+    test('should return a void after updating a user successfully', () async {
+      //arrange
+      when(mockRegistrationDataSource.updateUser(
+              name: anyNamed('name'),
+              staffId: anyNamed('staffId'),
+              role: anyNamed('role'),
+              email: anyNamed('email'),
+              phone: anyNamed('phone'),
+              password: anyNamed('password'),
+              gender: anyNamed('gender')))
+          .thenAnswer((_) async => (null));
+      //act
+      final result = await registrationRepositoryImpl.updateUser(
+          name: '',
+          role: '',
+          email: '',
+          phone: '',
+          password: '',
+          gender: '',
+          staffId: '');
 
-    //assert
-    verify(mockRegistrationDataSource.registerUser(
-        name: '', role: '', email: '', phone: '', password: '', gender: ''));
-    expect(result, Left(DatabaseFailure('T', 'M')));
-    verifyNoMoreInteractions(mockRegistrationDataSource);
+      //assert
+      verify(mockRegistrationDataSource.updateUser(
+          name: '',
+          role: '',
+          email: '',
+          phone: '',
+          password: '',
+          gender: '',
+          staffId: ''));
+      expect(result, Right(null));
+      verifyNoMoreInteractions(mockRegistrationDataSource);
+    });
+
+    // test
+    test('should return a DatabaseFailure when trying to update user',
+        () async {
+      //arrange
+      when(mockRegistrationDataSource.updateUser(
+              name: anyNamed('name'),
+              staffId: anyNamed('staffId'),
+              role: anyNamed('role'),
+              email: anyNamed('email'),
+              phone: anyNamed('phone'),
+              password: anyNamed('password'),
+              gender: anyNamed('gender')))
+          .thenThrow(DatabaseException());
+      //act
+      final result = await registrationRepositoryImpl.updateUser(
+          name: '',
+          role: '',
+          email: '',
+          phone: '',
+          password: '',
+          gender: '',
+          staffId: '');
+
+      //assert
+      verify(mockRegistrationDataSource.updateUser(
+          name: '',
+          role: '',
+          email: '',
+          phone: '',
+          password: '',
+          gender: '',
+          staffId: ''));
+      expect(result, Left(DatabaseFailure('T', 'M')));
+      verifyNoMoreInteractions(mockRegistrationDataSource);
+    });
   });
 }

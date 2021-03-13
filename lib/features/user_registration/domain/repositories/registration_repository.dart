@@ -13,7 +13,7 @@ abstract class RegistrationRepository {
     @required String gender,
   });
 
-  Future<Either<Failure, void>> updateUser({
+  Future<Either<Failure, bool>> updateUser({
     @required String name,
     String staffId,
     @required String role,

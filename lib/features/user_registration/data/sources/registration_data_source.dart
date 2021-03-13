@@ -13,6 +13,16 @@ abstract class RegistrationDataSource {
     @required String password,
     @required String gender,
   });
+
+  Future<void> updateUser({
+    @required String name,
+    String staffId,
+    @required String role,
+    @required String email,
+    @required String phone,
+    @required String password,
+    @required String gender,
+  });
 }
 
 class RegistrationDataSourceImpl implements RegistrationDataSource {
@@ -42,5 +52,29 @@ class RegistrationDataSourceImpl implements RegistrationDataSource {
 
     //save to database
     return await databaseHelper.save(USERS_BOX, userData);
+  }
+
+  @override
+  Future<bool> updateUser({
+    @required String name,
+    String staffId,
+    @required String role,
+    @required String email,
+    @required String phone,
+    @required String password,
+    @required String gender,
+  }) async {
+    final registeredUser = RegisteredUserModel(
+      staffId: staffId,
+      name: name,
+      email: email,
+      phone: phone,
+      gender: gender,
+      password: password,
+      role: role,
+    ).toJson();
+
+    await databaseHelper.update(email, USERS_BOX, registeredUser);
+    return true;
   }
 }

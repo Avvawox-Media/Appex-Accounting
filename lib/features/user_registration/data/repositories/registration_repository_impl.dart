@@ -1,3 +1,4 @@
+import 'package:appex_accounting/core/utils/strings.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
@@ -39,7 +40,7 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateUser({
+  Future<Either<DatabaseFailure, bool>> updateUser({
     String name,
     String staffId,
     String role,
@@ -47,8 +48,22 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
     String phone,
     String password,
     String gender,
-  }) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+  }) async {
+    try {
+      return Right(await registrationDataSourceImpl.updateUser(
+        staffId: staffId,
+        name: name,
+        email: email,
+        phone: phone,
+        role: role,
+        gender: gender,
+        password: password,
+      ));
+    } on DatabaseException {
+      return Left(DatabaseFailure(
+        DB_FAILURE_TITLE,
+        DB_UPDATE_USER_FAILURE_MESSAGE,
+      ));
+    }
   }
 }

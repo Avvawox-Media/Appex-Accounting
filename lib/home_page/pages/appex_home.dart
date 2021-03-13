@@ -9,12 +9,12 @@ import '../widgets/tab_button.dart';
 import '../widgets/user_info_view.dart';
 import '../widgets/window_control_buttons.dart';
 
-class AppexHome extends StatefulWidget {
+class Dashboard extends StatefulWidget {
   @override
-  _AppexHomeState createState() => _AppexHomeState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _AppexHomeState extends State<AppexHome> {
+class _DashboardState extends State<Dashboard> {
   int currentPage = 0;
   PageController pageController;
 

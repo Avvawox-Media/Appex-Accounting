@@ -21,3 +21,8 @@ const String INFLOW_BOX = 'inflow_tbl';
 const String OUTFLOW_BOX = 'outflow_tbl';
 const String CUSTOMERS_BOX = 'customers_tbl';
 const String ENQUIRIES_BOX = 'enquiries_tbl';
+
+// Database boxes names
+const String DB_FAILURE_TITLE = 'Action Unsuccessful';
+const String DB_UPDATE_USER_FAILURE_MESSAGE = 'Failed to update user\'s data';
+const String DB_AUTH_USER_FAILURE_MESSAGE = 'Failed to authenticate user';
