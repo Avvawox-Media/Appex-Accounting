@@ -96,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
               /////////////////////////////////////////////
               Expanded(
                 child: Container(
-                  color: AppColor.tertiary,
+                  color: AppColor.primary,
                   child: Column(
                     children: [
                       //Top Window Control bar

@@ -17,6 +17,7 @@ class _SummaryPageContentState extends State<SummaryPageContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Container(
         width: 180.0,
@@ -27,7 +28,7 @@ class _SummaryPageContentState extends State<SummaryPageContent> {
             borderRadius: BorderRadius.circular(5.0),
             boxShadow: [
               BoxShadow(
-                color: AppColor.secondary.withOpacity(0.5),
+                color: AppColor.primary.withOpacity(0.5),
                 spreadRadius: 4.0,
                 blurRadius: 5.0,
                 offset: Offset(2, 10),

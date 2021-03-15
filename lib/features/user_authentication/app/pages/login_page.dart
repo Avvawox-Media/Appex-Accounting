@@ -1,6 +1,7 @@
 import 'package:appex_accounting/core/utils/colors.dart';
-import 'package:appex_accounting/features/dialogs/custom_dialog.dart';
-import 'package:appex_accounting/home_page/pages/appex_home.dart';
+import 'package:appex_accounting/dialogs/custom_dialog.dart';
+import 'package:appex_accounting/features/user_registration/app/widgets/registration_widget.dart';
+import 'package:appex_accounting/home_page/pages/dashboard.dart';
 import 'package:appex_accounting/home_page/widgets/window_control_buttons.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -222,8 +223,9 @@ class _LoginPageState extends State<LoginPage> {
                             showDialogBox(
                                 context,
                                 CustomDialog(
-                                  width: 500.0,
-                                  height: 350.0,
+                                  width: 600.0,
+                                  height: 450.0,
+                                  content: RegistrationWidget(),
                                 ));
                           },
                         ),
@@ -247,6 +249,7 @@ class _LoginPageState extends State<LoginPage> {
                                 CustomDialog(
                                   width: 600.0,
                                   height: 450.0,
+                                  content: Container(child: Text('Settings')),
                                 ));
                           },
                         )

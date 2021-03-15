@@ -1,7 +1,7 @@
+import 'package:appex_accounting/home_page/widgets/summary_page_content.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/colors.dart';
-import 'summary_page_content.dart';
 
 class SummarySection extends StatefulWidget {
   @override
@@ -82,7 +82,7 @@ class _SummarySectionState extends State<SummarySection> {
           decoration: BoxDecoration(
             color: pageNumber == index
                 ? AppColor.highlight.withOpacity(0.5)
-                : AppColor.primary.withOpacity(0.5),
+                : AppColor.tertiary.withOpacity(0.3),
             borderRadius: BorderRadius.circular(24.0),
           ),
         ),

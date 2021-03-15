@@ -12,10 +12,10 @@ class CustomDialog extends StatefulWidget {
 
   const CustomDialog({
     Key key,
-    this.width,
-    this.height,
+    @required this.width,
+    @required this.height,
     this.color,
-    this.content,
+    @required this.content,
   }) : super(key: key);
   @override
   _CustomDialogState createState() => _CustomDialogState();
@@ -24,12 +24,16 @@ class CustomDialog extends StatefulWidget {
 class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      alignment: Alignment.center,
+      child: widget.content,
+    );
   }
 }
 
-void showDialogBox(BuildContext context, CustomDialog dialog) {
+void showDialogBox(BuildContext context, CustomDialog content) {
   showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (context) => Material(
       elevation: 3.0,
@@ -70,11 +74,22 @@ void showDialogBox(BuildContext context, CustomDialog dialog) {
                   ],
                 ),
               ),
-              dialog,
+              Expanded(
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  hoverThickness: 2.0,
+                  radius: Radius.circular(24.0),
+                  child: ListView(
+                    children: [
+                      content,
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
-          width: dialog.width,
-          height: dialog.height,
+          width: content.width,
+          height: content.height,
         ),
       ),
     ),

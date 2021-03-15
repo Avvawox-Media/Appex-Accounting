@@ -2,10 +2,13 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'features/user_authentication/app/pages/login_page.dart';
 import 'core/utils/colors.dart';
-import 'home_page/pages/appex_home.dart';
+import 'injection_container.dart' as ic;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Init Resource Locator
+  await ic.init();
 
   //Run Base Application
   runApp(Appex());
