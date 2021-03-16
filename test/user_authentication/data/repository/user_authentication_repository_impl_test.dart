@@ -24,9 +24,13 @@ void main() {
   });
 
   AuthenticatedUser authenticatedUser = AuthenticatedUserModel(
-    username: '',
+    name: '',
     password: '',
-    sessionToken: '',
+    role: '',
+    gender: '',
+    email: '',
+    phone: '',
+    staffId: '',
   );
 
   //test
@@ -35,9 +39,13 @@ void main() {
     when(mockAuthenticationDataSourceImpl.authenticateUser(any, any))
         .thenAnswer(
       (_) async => AuthenticatedUserModel(
-        username: '',
+        name: '',
         password: '',
-        sessionToken: '',
+        role: '',
+        gender: '',
+        email: '',
+        phone: '',
+        staffId: '',
       ),
     );
     //act

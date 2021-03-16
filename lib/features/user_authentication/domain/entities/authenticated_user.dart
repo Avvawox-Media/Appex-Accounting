@@ -1,12 +1,25 @@
 import 'package:equatable/equatable.dart';
 
 class AuthenticatedUser extends Equatable {
-  final String username;
+  final String staffId;
+  final String name;
+  final String email;
+  final String role;
+  final String gender;
   final String password;
-  final String sessionToken;
+  final String phone;
 
-  AuthenticatedUser({this.sessionToken, this.username, this.password});
+  AuthenticatedUser({
+    this.staffId,
+    this.name,
+    this.email,
+    this.role,
+    this.gender,
+    this.password,
+    this.phone,
+  });
 
   @override
-  List<Object> get props => [sessionToken];
+  List<Object> get props =>
+      [staffId, name, email, role, gender, password, phone];
 }

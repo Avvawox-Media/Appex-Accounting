@@ -110,12 +110,14 @@ class NotificationDialog {
 
   showSuccessDialog(String title, String message) {
     showDialog(
+      barrierColor: AppColor.primary,
       barrierDismissible: false,
       context: context,
       builder: (context) => Material(
         elevation: 3.0,
         type: MaterialType.transparency,
         child: Container(
+          color: AppColor.primary,
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

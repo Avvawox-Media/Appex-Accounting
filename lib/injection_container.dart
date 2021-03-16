@@ -77,7 +77,7 @@ Future<void> init() async {
   );
 
   // Authentication Data Source
-  sl.registerLazySingleton<UserAuthenticationDataSource>(
+  sl.registerLazySingleton<UserAuthenticationDataSourceImpl>(
     () => UserAuthenticationDataSourceImpl(
       sl(),
     ),

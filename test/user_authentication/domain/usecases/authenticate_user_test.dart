@@ -22,7 +22,15 @@ void main() {
     //arrange
     when(mockAuthenticationRepository.authenticateUser(any, any)).thenAnswer(
       (_) async => Right(
-        AuthenticatedUser(username: '', password: '', sessionToken: ''),
+        AuthenticatedUser(
+          name: '',
+          password: '',
+          role: '',
+          gender: '',
+          email: '',
+          phone: '',
+          staffId: '',
+        ),
       ),
     );
     //act
@@ -32,7 +40,15 @@ void main() {
     verify(mockAuthenticationRepository.authenticateUser('', ''));
     expect(
       result,
-      Right(AuthenticatedUser(username: '', password: '', sessionToken: '')),
+      Right(AuthenticatedUser(
+        name: '',
+        password: '',
+        role: '',
+        gender: '',
+        email: '',
+        phone: '',
+        staffId: '',
+      )),
     );
     verifyNoMoreInteractions(mockAuthenticationRepository);
   });

@@ -30,6 +30,11 @@ class AuthenticationBloc
           event.password,
         ),
       );
+
+      yield resultOrFailure.fold(
+        (failure) => AuthenticationError(failure),
+        (authenticatedUser) => AuthenticationDone(authenticatedUser),
+      );
     }
   }
 }

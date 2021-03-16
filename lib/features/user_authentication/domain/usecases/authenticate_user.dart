@@ -24,5 +24,5 @@ class AuthParams extends Equatable {
   AuthParams(this.username, this.password);
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [username, password];
 }

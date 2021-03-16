@@ -3,27 +3,46 @@ import 'dart:convert';
 import 'package:appex_accounting/features/user_authentication/domain/entities/authenticated_user.dart';
 
 class AuthenticatedUserModel extends AuthenticatedUser {
-  AuthenticatedUserModel(
-      {String username, String password, String sessionToken})
-      : super(
-            username: username, password: password, sessionToken: sessionToken);
+  AuthenticatedUserModel({
+    String staffId,
+    String name,
+    String email,
+    String role,
+    String gender,
+    String password,
+    String phone,
+  }) : super(
+          name: name,
+          password: password,
+          email: email,
+          role: role,
+          gender: gender,
+          phone: phone,
+          staffId: staffId,
+        );
 
   factory AuthenticatedUserModel.fromJson(String jsonString) {
     //Decode JSON String
     final data = json.decode(jsonString);
 
     return AuthenticatedUserModel(
-      username: data['username'],
+      name: data['name'],
+      email: data['email'],
+      role: data['role'],
+      gender: data['gender'],
+      phone: data['phone'],
       password: data['password'],
-      sessionToken: data['session_token'],
     );
   }
 
   String toJson() {
     Map<String, dynamic> map = {
-      'username': username,
+      'name': name,
       'password': password,
-      'session_token': sessionToken,
+      'email': email,
+      'role': role,
+      'gender': gender,
+      'phone': phone,
     };
 
     return json.encode(map);

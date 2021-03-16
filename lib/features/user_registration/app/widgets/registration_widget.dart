@@ -1,6 +1,5 @@
 import 'package:appex_accounting/core/utils/colors.dart';
 import 'package:appex_accounting/core/validation/field_validator.dart';
-import 'package:appex_accounting/dialogs/custom_dialog.dart';
 import 'package:appex_accounting/dialogs/notification_dialog.dart';
 import 'package:appex_accounting/features/user_registration/app/bloc/registration_bloc.dart';
 import 'package:flutter/material.dart';
@@ -179,6 +178,9 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                         alignment: Alignment.center,
                         child: TextField(
                           controller: phoneController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp('[0-9]+')),
+                          ],
                           style: TextStyle(color: AppColor.bluish),
                           autocorrect: false,
                           enabled: true,
@@ -307,6 +309,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                             setState(() {
                               roleValue = value;
                             });
+                            print(roleValue);
                           },
                           items: roleList
                               .map(
@@ -487,8 +490,16 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
     @required String gender,
     @required String password,
   }) {
-    registrationBloc.add(
-        RegisterUserEvent(name, staffId, role, email, phone, password, gender));
+    final List nameParts = name.split(' ');
+    String formattedName = '';
+
+    for (String value in nameParts) {
+      String first = value.substring(0, 1).toUpperCase();
+      formattedName += value.replaceRange(0, 1, first) + ' ';
+    }
+
+    registrationBloc.add(RegisterUserEvent(formattedName.trim(), staffId, role,
+        email.toLowerCase(), phone, password, gender));
   }
 
   FieldValidator validateInput() {

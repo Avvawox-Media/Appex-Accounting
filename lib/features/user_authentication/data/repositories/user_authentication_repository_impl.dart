@@ -1,4 +1,3 @@
-import 'package:appex_accounting/core/exceptions/exceptions.dart';
 import 'package:appex_accounting/core/utils/strings.dart';
 import 'package:appex_accounting/features/user_authentication/data/sources/user_authentication_data_source.dart';
 import 'package:appex_accounting/features/user_authentication/domain/entities/authenticated_user.dart';
@@ -19,11 +18,9 @@ class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
         username,
         password,
       ));
-    } on DatabaseException {
-      return Left(DatabaseFailure(
-        DB_FAILURE_TITLE,
-        DB_AUTH_USER_FAILURE_MESSAGE,
-      ));
+    } catch (e) {
+      print(e);
+      return Left(DatabaseFailure(DB_FAILURE_TITLE, e));
     }
   }
 }

@@ -15,7 +15,7 @@ class RegisterUser extends UseCase<int, RegistrationParams> {
   Future<Either<Failure, int>> call(params) async {
     return await registrationRepository.registerUser(
       name: params.name,
-      role: params.name,
+      role: params.role,
       staffId: params.staffId,
       email: params.email,
       phone: params.phone,

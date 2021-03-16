@@ -18,21 +18,28 @@ void main() {
   });
 
   AuthenticatedUser authenticatedUser = AuthenticatedUserModel(
-    username: '',
+    name: '',
     password: '',
-    sessionToken: '',
+    role: '',
+    gender: '',
+    email: '',
+    phone: '',
+    staffId: '',
   );
 
   //test
   test('Should get the appropriate user data from the database', () async {
     //arrange
-    when(mockDatabaseHelper.getItem(any, any)).thenAnswer(
-      (_) async => AuthenticatedUserModel(
-        username: '',
-        password: '',
-        sessionToken: '',
-      ),
-    );
+    when(mockDatabaseHelper.getItem(any, any))
+        .thenAnswer((_) async => AuthenticatedUserModel(
+              name: '',
+              password: '',
+              role: '',
+              gender: '',
+              email: '',
+              phone: '',
+              staffId: '',
+            ));
     //act
     final result =
         await userAuthenticationDataSourceImpl.authenticateUser('', '');

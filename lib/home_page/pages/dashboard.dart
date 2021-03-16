@@ -1,3 +1,4 @@
+import 'package:appex_accounting/features/user_authentication/domain/entities/authenticated_user.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,13 @@ import '../widgets/user_info_view.dart';
 import '../widgets/window_control_buttons.dart';
 
 class Dashboard extends StatefulWidget {
+  final AuthenticatedUser authenticatedUser;
+
+  const Dashboard({
+    Key key,
+    @required this.authenticatedUser,
+  }) : super(key: key);
+
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -60,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                   SizedBox(height: 20.0),
 
                   //Logged in User Profile
-                  UserInfoView(),
+                  UserInfoView(authenticatedUser: widget.authenticatedUser),
 
                   SizedBox(height: 20.0),
 

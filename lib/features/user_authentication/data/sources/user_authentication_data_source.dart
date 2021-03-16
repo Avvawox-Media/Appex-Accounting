@@ -1,8 +1,10 @@
 import 'package:appex_accounting/core/database/database_helper.dart';
 import 'package:appex_accounting/core/exceptions/exceptions.dart';
-import 'package:appex_accounting/core/failure/failures.dart';
 import 'package:appex_accounting/core/utils/strings.dart';
 import 'package:appex_accounting/features/user_authentication/data/models/authenticated_user_model.dart';
+import 'package:appex_accounting/features/user_authentication/domain/usecases/authenticate_user.dart';
+import 'package:appex_accounting/features/user_registration/data/models/registered_user_model.dart';
+import 'package:crypt/crypt.dart';
 
 abstract class UserAuthenticationDataSource {
   Future<AuthenticatedUserModel> authenticateUser(
@@ -23,26 +25,35 @@ class UserAuthenticationDataSourceImpl implements UserAuthenticationDataSource {
     await databaseHelper.initDatabase();
     await databaseHelper.open(USERS_BOX);
 
-    List<String> userDataList = await databaseHelper.getAllItem(USERS_BOX);
+    //
+    AuthenticatedUserModel userModel;
 
-    for (String userData in userDataList) {
-      final userModel = AuthenticatedUserModel.fromJson(userData);
+    List<dynamic> userDataList = await databaseHelper.getAllItem(USERS_BOX);
+    List<String> usernames = [];
+    List<String> passwords = [];
 
-      String verifiedUser = userModel.username;
+    for (dynamic user in userDataList) {
+      userModel = AuthenticatedUserModel.fromJson(user.toString());
 
-      //Encrypt and match Password Here
-      String verifiedPassword = userModel.password;
-
-      if (verifiedUser != username)
-        // throw UserNotFoundException();
-        throw DatabaseException();
-      else if (verifiedPassword != password)
-        // throw IncorrectPasswordException();
-        throw DatabaseException();
-      else
-        return userModel;
+      usernames.add(userModel.email);
+      passwords.add(userModel.password);
     }
 
-    throw DatabaseException();
+    //Encrypt and match Password Here
+
+    if (usernames.contains(username)) {
+      int index = usernames.indexOf(username);
+
+      final encryptedPassword = Crypt.sha256(password, salt: 'axcecpopuan@t');
+
+      if (passwords.elementAt(index) == encryptedPassword.toString()) {
+        print('User Authenticated');
+        return userModel;
+      } else {
+        throw ('Incorrect username or password');
+      }
+    } else {
+      throw ('User does not exist');
+    }
   }
 }
