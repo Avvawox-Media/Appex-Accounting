@@ -1,3 +1,5 @@
+import 'package:crypt/crypt.dart';
+
 import '../../../../core/database/database_helper.dart';
 import '../../../../core/utils/strings.dart';
 import '../models/registered_user_model.dart';
@@ -40,13 +42,16 @@ class RegistrationDataSourceImpl implements RegistrationDataSource {
     @required String password,
     @required String gender,
   }) async {
+    //Try Encrypting Password
+    final encryptedPassword = Crypt.sha256(password, salt: 'axcecpopuan@t');
+
     final userData = RegisteredUserModel(
       staffId: staffId,
       name: name,
       role: role,
       email: email,
       phone: phone,
-      password: password,
+      password: encryptedPassword.toString(),
       gender: gender,
     ).toJson();
 
