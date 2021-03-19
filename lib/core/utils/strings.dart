@@ -15,7 +15,7 @@ const String CUSTOMERS_TABLE = 'customers_tbl';
 const String ENQUIRIES_TABLE = 'enquiries_tbl';
 
 // Database boxes names
-const String USERS_BOX = 'users_tbl';
+const String USERS_BOX = 'users_box';
 const String SERVICES_BOX = 'services_tbl';
 const String INFLOW_BOX = 'inflow_tbl';
 const String OUTFLOW_BOX = 'outflow_tbl';

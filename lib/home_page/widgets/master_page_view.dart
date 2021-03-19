@@ -1,3 +1,4 @@
+import 'package:appex_accounting/features/services/app/widgets/service_table_view.dart';
 import 'package:flutter/material.dart';
 
 class MasterPageView extends StatefulWidget {
@@ -22,31 +23,48 @@ class _MasterPageViewState extends State<MasterPageView>
     //Select Page
     switch (pageNumber) {
       case 0:
+
+        //Display Jobs and Services Table Widget
         return Container(
           alignment: Alignment.center,
-          child: Text('Jobs & Dervices'),
+          child: ServiceTableView(),
         );
+
       case 1:
+
+        //Display Finances Table Widget
         return Container(
           alignment: Alignment.center,
           child: Text('Finances'),
         );
+
       case 2:
+
+        //Display Finances Table Widget
         return Container(
           alignment: Alignment.center,
           child: TextField(),
         );
+
       case 3:
+
+        //Display Customer Table Widget
         return Container(
           alignment: Alignment.center,
           child: Text('Customer Base'),
         );
+
       case 4:
+
+        //Display Users Table Widget
         return Container(
           alignment: Alignment.center,
           child: Text('Manage Users'),
         );
+
       default:
+
+        //Display Finances Table Widget
         return Container(
           alignment: Alignment.center,
           child: Text('Manage Users'),

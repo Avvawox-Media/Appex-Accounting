@@ -124,7 +124,7 @@ class _DashboardState extends State<Dashboard> {
 
                       /// Summary Window
                       Expanded(
-                        flex: 3,
+                        flex: 2,
                         child: SummarySection(),
                       ),
 

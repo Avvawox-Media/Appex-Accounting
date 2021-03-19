@@ -4,10 +4,10 @@ import 'package:appex_accounting/features/services/domain/entities/service.dart'
 import 'package:appex_accounting/features/services/domain/repositories/service_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class GetService extends UseCase<List<Service>, GetServicesParams> {
+class GetServices extends UseCase<List<Service>, GetServicesParams> {
   final ServiceRepository serviceRepository;
 
-  GetService(this.serviceRepository);
+  GetServices(this.serviceRepository);
 
   @override
   Future<Either<Failure, List<Service>>> call(params) {

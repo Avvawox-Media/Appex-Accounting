@@ -1,3 +1,5 @@
+import 'package:appex_accounting/features/user_authentication/domain/entities/authenticated_user.dart';
+import 'package:appex_accounting/home_page/pages/dashboard.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'features/user_authentication/app/pages/login_page.dart';
@@ -54,7 +56,16 @@ class _AppexState extends State<Appex> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: Dashboard(
+        authenticatedUser: AuthenticatedUser(
+            name: 'Ben',
+            email: '',
+            gender: '',
+            password: '',
+            role: '',
+            phone: '',
+            staffId: ''),
+      ),
       // home: SplashPage(),
     );
   }

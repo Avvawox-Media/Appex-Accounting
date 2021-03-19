@@ -1,6 +1,15 @@
 import 'dart:io';
 
 import 'package:appex_accounting/core/database/database_helper.dart';
+import 'package:appex_accounting/features/services/app/bloc/service_bloc.dart';
+import 'package:appex_accounting/features/services/data/repositories/service_repository_impl.dart';
+import 'package:appex_accounting/features/services/data/sources/service_data_source.dart';
+import 'package:appex_accounting/features/services/domain/repositories/service_repository.dart';
+import 'package:appex_accounting/features/services/domain/usecases/create_service.dart';
+import 'package:appex_accounting/features/services/domain/usecases/delete_service.dart';
+import 'package:appex_accounting/features/services/domain/usecases/get_service.dart';
+import 'package:appex_accounting/features/services/domain/usecases/get_services.dart';
+import 'package:appex_accounting/features/services/domain/usecases/update_service.dart';
 import 'package:appex_accounting/features/user_authentication/data/repositories/user_authentication_repository_impl.dart';
 import 'package:appex_accounting/features/user_authentication/domain/repositories/user_authentication_repository.dart';
 import 'package:appex_accounting/features/user_authentication/domain/usecases/authenticate_user.dart';
@@ -10,14 +19,11 @@ import 'package:appex_accounting/features/user_registration/domain/repositories/
 import 'package:appex_accounting/features/user_registration/domain/usecases/register_user.dart';
 import 'package:appex_accounting/features/user_registration/domain/usecases/update_user.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
-
 import 'features/user_authentication/app/bloc/authentication_bloc.dart';
 import 'features/user_authentication/data/sources/user_authentication_data_source.dart';
 import 'features/user_registration/data/sources/registration_data_source.dart';
 import 'features/user_registration/domain/usecases/get_users.dart';
 import 'features/user_registration/domain/usecases/remove_user.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 
 GetIt sl = GetIt.instance;
 
@@ -40,6 +46,17 @@ Future<void> init() async {
     () => AuthenticationBloc(sl()),
   );
 
+  //Service Bloc
+  sl.registerFactory(
+    () => ServiceBloc(
+      createService: sl(),
+      updateService: sl(),
+      getService: sl(),
+      getServices: sl(),
+      deleteService: sl(),
+    ),
+  );
+
   ////////////////////////////////////////////////////////
   /// DOMAIN LAYER
 
@@ -52,6 +69,13 @@ Future<void> init() async {
   // Authentication Usecase
   sl.registerLazySingleton(() => AuthenticateUser(sl()));
 
+  // Service Usecases
+  sl.registerLazySingleton(() => CreateService(sl()));
+  sl.registerLazySingleton(() => UpdateService(sl()));
+  sl.registerLazySingleton(() => GetService(sl()));
+  sl.registerLazySingleton(() => GetServices(sl()));
+  sl.registerLazySingleton(() => DeleteService(sl()));
+
   // Registration Repository
   sl.registerLazySingleton<RegistrationRepository>(
     () => RegistrationRepositoryImpl(
@@ -62,6 +86,13 @@ Future<void> init() async {
   // Authentication Repository
   sl.registerLazySingleton<UserAuthenticationRepository>(
     () => UserAuthenticationRepositoryImpl(
+      sl(),
+    ),
+  );
+
+  // Service Repository
+  sl.registerLazySingleton<ServiceRepository>(
+    () => ServiceRepositoryImpl(
       sl(),
     ),
   );
@@ -83,6 +114,13 @@ Future<void> init() async {
     ),
   );
 
+  // Service Data Source
+  sl.registerLazySingleton<ServiceDataSourceImpl>(
+    () => ServiceDataSourceImpl(
+      sl(),
+    ),
+  );
+
   ////////////////////////////////////////////////////////
   /// CORE
 
@@ -93,11 +131,4 @@ Future<void> init() async {
 
   ////////////////////////////////////////////////////////
   /// EXTERNAL
-
-  //Hive Database
-  // sl.registerLazySingleton(() => Hive.init(sl()));
-
-  //Path Provider
-  // final directory = await path_provider.getApplicationDocumentsDirectory();
-  // sl.registerLazySingleton(() => directory.path);
 }
