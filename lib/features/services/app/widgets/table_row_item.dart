@@ -16,9 +16,8 @@ class _TableRowItemState extends State<TableRowItem> {
       height: 40.0,
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-      // margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColor.highlight.withOpacity(0.4)),
+        border: Border.all(color: AppColor.highlight.withOpacity(0.8)),
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: widget.content,

@@ -1,6 +1,6 @@
 import 'package:appex_accounting/core/utils/colors.dart';
 import 'package:appex_accounting/core/validation/field_validator.dart';
-import 'package:appex_accounting/dialogs/notification_dialog.dart';
+import 'package:appex_accounting/core/dialogs/notification_dialog.dart';
 import 'package:appex_accounting/features/user_registration/app/bloc/registration_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

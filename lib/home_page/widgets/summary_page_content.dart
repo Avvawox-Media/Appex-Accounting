@@ -28,7 +28,7 @@ class _SummaryPageContentState extends State<SummaryPageContent> {
             borderRadius: BorderRadius.circular(5.0),
             boxShadow: [
               BoxShadow(
-                color: AppColor.primary.withOpacity(0.5),
+                color: AppColor.primary.withOpacity(0.2),
                 spreadRadius: 4.0,
                 blurRadius: 5.0,
                 offset: Offset(2, 10),

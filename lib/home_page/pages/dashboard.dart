@@ -104,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
               /////////////////////////////////////////////
               Expanded(
                 child: Container(
-                  color: AppColor.primary,
+                  color: AppColor.tertiary,
                   child: Column(
                     children: [
                       //Top Window Control bar
@@ -132,7 +132,6 @@ class _DashboardState extends State<Dashboard> {
                       Expanded(
                         flex: 7,
                         child: Container(
-                            child: Container(
                           child: PageView(
                             controller: pageController,
                             physics: NeverScrollableScrollPhysics(),
@@ -145,7 +144,7 @@ class _DashboardState extends State<Dashboard> {
                               ),
                             ).toList(),
                           ),
-                        )),
+                        ),
                       ),
                     ],
                   ),

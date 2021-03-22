@@ -41,7 +41,7 @@ void showDialogBox(BuildContext context, CustomDialog content) {
       child: Align(
         child: Container(
           decoration: BoxDecoration(
-            color: AppColor.secondary,
+            color: AppColor.primary,
             borderRadius: BorderRadius.circular(3.0),
           ),
           child: Column(

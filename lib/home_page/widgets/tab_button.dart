@@ -22,20 +22,22 @@ class TabButton extends StatefulWidget {
 class _TabButtonState extends State<TabButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(32.0),
+        color: widget.pageNumber == widget.index
+            ? AppColor.highlight.withOpacity(0.7)
+            : AppColor.btnColor.withOpacity(0.3),
+        // border: Border.all(color: AppColor.bluish.withOpacity(0.1)),
+      ),
       margin: EdgeInsets.symmetric(vertical: 15.0),
       child: InkWell(
         onTap: () {
           widget.onTap();
         },
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(32.0),
-            color: widget.pageNumber == widget.index
-                ? AppColor.highlight.withOpacity(0.5)
-                : AppColor.primary.withOpacity(0.5),
-          ),
-          // margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Row(
             children: [

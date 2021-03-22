@@ -1,4 +1,4 @@
-import 'package:appex_accounting/features/services/app/widgets/service_table_view.dart';
+import 'package:appex_accounting/features/services/app/pages/service_table_view.dart';
 import 'package:flutter/material.dart';
 
 class MasterPageView extends StatefulWidget {

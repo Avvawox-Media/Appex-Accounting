@@ -17,7 +17,7 @@ void main() async {
 
   //Init Custom Windows Settings
   doWhenWindowReady(() {
-    final initialSize = Size(860, 600);
+    final initialSize = Size(960, 640);
 
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
