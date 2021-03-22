@@ -8,7 +8,7 @@ class AppColor {
   static final bluish = Color(0xFF046EEE);
 
   //Primarily, for Button colors
-  static final btnColor = Color(0xFF30305F);
+  static final tabBtnColor = Color(0xFF30305F);
   static final highlight = Color(0xFF30303D);
   static final accent = Color(0xFFB5B5B5);
 }

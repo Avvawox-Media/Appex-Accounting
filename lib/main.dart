@@ -45,7 +45,7 @@ class _AppexState extends State<Appex> {
       title: 'Appex',
       theme: ThemeData(
         primaryColor: AppColor.primary,
-        accentColor: AppColor.bluish,
+        accentColor: AppColor.accent,
         textTheme: TextTheme(
           bodyText2: TextStyle(
             color: AppColor.bluish,

@@ -28,8 +28,8 @@ class _TabButtonState extends State<TabButton> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32.0),
         color: widget.pageNumber == widget.index
-            ? AppColor.highlight.withOpacity(0.7)
-            : AppColor.btnColor.withOpacity(0.3),
+            ? AppColor.highlight.withOpacity(0.9)
+            : AppColor.tabBtnColor.withOpacity(0.3),
         // border: Border.all(color: AppColor.bluish.withOpacity(0.1)),
       ),
       margin: EdgeInsets.symmetric(vertical: 15.0),
