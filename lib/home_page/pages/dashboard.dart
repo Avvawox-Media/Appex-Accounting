@@ -58,10 +58,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Column(children: [
                   WindowTitleBarBox(
                     child: MoveWindow(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.0),
-                        child: LogoSection(),
-                      ),
+                      child: LogoSection(),
                     ),
                   ),
 

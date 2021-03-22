@@ -5,11 +5,12 @@ class LogoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      margin: EdgeInsets.only(top: 5.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
       child: Image(
         image: AssetImage('lib/core/images/appex_title.png'),
         fit: BoxFit.contain,
-        height: 15.0,
+        height: 30.0,
       ),
     );
   }
